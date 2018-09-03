@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration>
+	<appender name="errorFile" class="org.apache.log4j.RollingFileAppender">
+		<param name="maxFileSize" value="10000KB" />
+		<param name="maxBackupIndex" value="5" />
+		<param name="File" value="error.log" />
+		<param name="threshold" value="error" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%5p %c %d{dd MMM yyyy HH:mm:ss}. - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="error" />
+			<param name="levelMax" value="fatal" />
+		</filter>
+	</appender>
+
+	<appender name="infoFile" class="org.apache.log4j.RollingFileAppender">
+		<param name="maxFileSize" value="1000KB" />
+		<param name="maxBackupIndex" value="5" />
+		<param name="File" value="info.log" />
+		<param name="threshold" value="info" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%5p %c %d{dd MMM yyyy HH:mm:ss}. - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="info" />
+			<param name="levelMax" value="info" />
+		</filter>
+	</appender>
+
+	<appender name="debugConsole" class="org.apache.log4j.ConsoleAppender"> 
+		<param name="Target" value="System.out"/> 
+		<param name="Threshold" value="DEBUG"/> 
+		<layout class="org.apache.log4j.PatternLayout"> 
+			<param name="ConversionPattern" 
+			value="%%5p %c %d{dd MMM yyyy HH:mm:ss}. - %m%n"/> 
+		</layout> 
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="levelMin" value="debug" />
+			<param name="levelMax" value="fatal" />
+		</filter>
+	</appender> 
+	
+
+	<!-- ############### Loggers ############  -->
+	<!--<logger name="com.ibatis" >
+	  	<level value="DEBUG"/>
+		<appender-ref ref="debugConsole" />
+
+	</logger>
+
+	<logger name="com.ibatis.sqlmap.client.SqlMapClient" >
+	  	<level value="debug"/>
+		<appender-ref ref="debugConsole" />
+	</logger>
+
+    <logger name="java.sql">
+	  	<level value="debug"/>
+		<appender-ref ref="debugConsole" />
+	</logger>
+
+
+    <logger name="java.sql.PreparedStatement">
+	  	<level value="debug"/>
+		<appender-ref ref="debugConsole" />
+	</logger>
+
+
+
+	--><!-- ############### Categories ############  -->
+
+
+	<!-- 
+		
+		<category name="com.ibatis">
+		<priority value="debug" />
+		</category>
+		
+		<category name="com.ibatis.sqlmap">
+		<priority value="debug" />
+		</category>
+		
+		<category name="java.sql">
+		<priority value="debug" />
+		</category>
+		
+		<category name="java.sql.PreparedStatement">
+		<priority value="debug" />
+		</category>
+		
+	-->
+
+
+	<root>
+		<priority value="debug" />
+		<!-- <appender-ref ref="debugConsole" />	 -->	
+		<appender-ref ref="infoFile" />
+		<appender-ref ref="errorFile" />
+	</root>
+
+
+
+</log4j:configuration>
