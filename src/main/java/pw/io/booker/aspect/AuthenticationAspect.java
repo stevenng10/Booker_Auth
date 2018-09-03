@@ -5,6 +5,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
+import pw.io.booker.exceptionhandling.AuthenticationException;
 import pw.io.booker.repo.AuthenticationRepository;
 
 @Aspect
@@ -24,17 +25,17 @@ public class AuthenticationAspect {
 		Object returnObject = null;
 
 		if (token == null) {
-			throw new RuntimeException("Access Denied");
+			throw new AuthenticationException("Access Denied");
 		}
 
 		if (authenticationRepository.findByToken(token) == null) {
-			throw new RuntimeException("Access Denied");
+			throw new AuthenticationException("Access Denied");
 		}
 
 		try {
 			returnObject = jointpoint.proceed();
 		} catch (Throwable e) {
-			throw new RuntimeException("Access Denied");
+			throw new AuthenticationException("Access Denied: " + e);
 		}
 
 		return returnObject;
