@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -15,7 +16,8 @@ public class Authentication {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int authId;
 	private String token;
-	@OneToOne(mappedBy = "authentication")
+	@OneToOne
+	@JoinColumn(name = "customerId")
 	private Customer customer;
 	private LocalDate date;
 
@@ -50,5 +52,4 @@ public class Authentication {
 	public void setDate(LocalDate date) {
 		this.date = date;
 	}
-
 }

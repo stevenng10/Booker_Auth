@@ -5,9 +5,18 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
+import pw.io.booker.repo.AuthenticationRepository;
+
 @Aspect
 @Component
 public class AuthenticationAspect {
+
+	AuthenticationRepository authenticationRepository;
+
+	public AuthenticationAspect(AuthenticationRepository authenticationRepository) {
+		super();
+		this.authenticationRepository = authenticationRepository;
+	}
 
 	@Around("execution(* pw.io.booker.controller..*(..)) && args(token,..)")
 	public Object getAuthentication(ProceedingJoinPoint jointpoint, String token) {
@@ -15,6 +24,10 @@ public class AuthenticationAspect {
 		Object returnObject = null;
 
 		if (token == null) {
+			throw new RuntimeException("Access Denied");
+		}
+
+		if (authenticationRepository.findByToken(token) == null) {
 			throw new RuntimeException("Access Denied");
 		}
 

@@ -8,9 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -28,22 +26,10 @@ public class Customer {
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
 	private List<Reservation> reservation;
 
-	@OneToOne
-	@JoinColumn(name = "authId")
-	private Authentication authentication;
-
 	@Column(unique = true, nullable = false)
 	private String username;
 	@Column(nullable = false)
 	private String password;
-
-	public Authentication getAuthentication() {
-		return authentication;
-	}
-
-	public void setAuthentication(Authentication authentication) {
-		this.authentication = authentication;
-	}
 
 	public String getUsername() {
 		return username;
